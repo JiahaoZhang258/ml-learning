@@ -1,13 +1,16 @@
 import numpy as np
 
-A = np.array([[1,  2,  3,  4],
-              [5,  6,  7,  8],
-              [9, 10, 11, 12]])
+# 设置随机种子
+np.random.seed(42) 
 
-# 找出所有大于6的元素
-print("大于6的元素：", A[A > 6])
+# 正态分布随机数（均值0，方差1）
+a = np.random.randn(3, 4)
+print("正态分布随机矩阵：\n", a)
 
-# 把所有大于6的元素替换成0
-B = A.copy()
-B[B > 6] = 0
-print("大于6的元素替换成0：\n", B)
+# 0到1之间的均匀分布
+b = np.random.rand(3, 4)
+print("\n均匀分布随机矩阵：\n", b)
+
+# 随机整数（0到10之间）
+c = np.random.randint(0, 10, size=(3, 4))
+print("\n随机整数矩阵：\n", c)
