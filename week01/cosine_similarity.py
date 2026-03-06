@@ -24,3 +24,20 @@ car   = np.array([0.0, 0.0, 1.0])   # 汽车
 
 print(f"猫 vs 狗:  {cosine_similarity(cat, dog):.2f}")
 print(f"猫 vs 汽车: {cosine_similarity(cat, car):.2f}")
+
+# 批量计算余弦相似度（用矩阵运算，不用for循环）
+def batch_cosine_similarity(A, B):
+    # A, B 均为 (N, D) 矩阵
+    norms_A = np.linalg.norm(A, axis=1, keepdims=True)  # (N, 1)
+    norms_B = np.linalg.norm(B, axis=1, keepdims=True)  # (N, 1)
+    A_norm = A / norms_A
+    B_norm = B / norms_B
+    return np.sum(A_norm * B_norm, axis=1)  # (N,)
+
+# 测试
+np.random.seed(42)
+A = np.random.randn(5, 3)  # 5个向量，每个3维
+B = np.random.randn(5, 3)
+
+result = batch_cosine_similarity(A, B)
+print("批量余弦相似度：", np.round(result, 2))
