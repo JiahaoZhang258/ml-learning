@@ -1,21 +1,13 @@
 import numpy as np
-import time
 
-A = np.random.randn(1000, 1000)
-b = np.random.randn(1000)
+A = np.array([[1,  2,  3,  4],
+              [5,  6,  7,  8],
+              [9, 10, 11, 12]])
 
-# 方法一：for 循环
-t0 = time.time()
-result1 = np.zeros_like(A)
-for i in range(1000):
-    result1[i] = A[i] + b
-t1 = time.time()
-print(f"for循环耗时: {(t1-t0)*1000:.2f} ms")
+# 找出所有大于6的元素
+print("大于6的元素：", A[A > 6])
 
-# 方法二：广播
-t0 = time.time()
-result2 = A + b
-t1 = time.time()
-print(f"广播耗时:   {(t1-t0)*1000:.2f} ms")
-
-print("两种方法结果相同：", np.allclose(result1, result2))
+# 把所有大于6的元素替换成0
+B = A.copy()
+B[B > 6] = 0
+print("大于6的元素替换成0：\n", B)
