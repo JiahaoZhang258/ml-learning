@@ -32,3 +32,31 @@ print(f"在点 ({x}, {y}) 处：")
 print(f"函数值 = {f2(x, y)}")
 print(f"梯度 = {grad}  （这是一个向量，指向函数增大最快的方向）")
 print(f"下降方向 = {-grad}  （梯度的反方向）")
+
+# 链式法则例子
+# f(x) = (x² + 1)²
+# 令 g(x) = x² + 1，则 f = g²
+# df/dx = df/dg × dg/dx = 2g × 2x = 2(x²+1) × 2x
+
+def f_chain(x):
+    return (x**2 + 1)**2
+
+def df_chain(x):
+    g = x**2 + 1       # 中间变量
+    df_dg = 2 * g      # f 对 g 的导数
+    dg_dx = 2 * x      # g 对 x 的导数
+    return df_dg * dg_dx  # 链式法则
+
+# 验证
+for x in [1.0, 2.0, 3.0]:
+    print(f"x={x}, 链式法则导数={df_chain(x):.2f}")
+
+# 用数值方法验证链式法则
+def numerical_gradient(f, x, eps=1e-5):
+    return (f(x + eps) - f(x - eps)) / (2 * eps)
+
+print("\n链式法则 vs 数值梯度验证：")
+for x in [1.0, 2.0, 3.0]:
+    analytic = df_chain(x)
+    numeric  = numerical_gradient(f_chain, x)
+    print(f"x={x}, 链式法则={analytic:.4f}, 数值梯度={numeric:.4f}, 误差={abs(analytic-numeric):.2e}")
