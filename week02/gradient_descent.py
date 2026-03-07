@@ -49,3 +49,26 @@ plt.grid(True)
 plt.tight_layout()
 plt.savefig('week02/gradient_descent.png', dpi=100)
 print("图片已保存到 week02/gradient_descent.png")
+
+# 学习率对比实验
+learning_rates = [0.001, 0.1, 1.5]
+colors = ['blue', 'green', 'red']
+labels = ['lr=0.001 (太小)', 'lr=0.1 (合适)', 'lr=1.5 (太大会震荡)']
+
+plt.figure(figsize=(10, 5))
+for lr, color, label in zip(learning_rates, colors, labels):
+    x = 10.0
+    losses = [f(x)]
+    for _ in range(30):
+        x = x - lr * gradient(x)
+        losses.append(f(x))
+    plt.plot(losses, color=color, label=label)
+
+plt.xlabel('迭代次数')
+plt.ylabel('Loss')
+plt.title('不同学习率的收敛对比')
+plt.legend()
+plt.grid(True)
+plt.ylim(-1, 110)
+plt.savefig('week02/lr_comparison.png', dpi=100)
+print("学习率对比图已保存")
